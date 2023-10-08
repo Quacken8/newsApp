@@ -4,11 +4,9 @@ import type { ArticleContent } from "$lib/components/Article.svelte";
 const RSS_FEED_URL = "https://www.aktualne.cz/rss/";
 
 export function fetchAktualneArticles(): Promise<ArticleContent[]> {
-  const source = "Aktuálně.cz";
+  const source = "Al Jazeera";
   const rssFeed = fetchAndParseRssFeed(RSS_FEED_URL);
   const articles = rssFeed.then((feed) => feed.rss.channel[0].item);
-
-  const imgTagRegex = /<img.*?src=["'](.*?)["'].*?alt=["'](.*?)["'].*?>/;
 
   return articles.then((articles) =>
     articles.map((article: any) => ({
@@ -22,8 +20,6 @@ export function fetchAktualneArticles(): Promise<ArticleContent[]> {
         })
       ),
       date: new Date(article.pubDate[0]),
-      imageSrc: article["content:encoded"][0].match(imgTagRegex)?.[1],
-      imageAlt: article["content:encoded"][0].match(imgTagRegex)?.[2],
       source,
     }))
   );

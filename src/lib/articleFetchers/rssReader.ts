@@ -31,7 +31,7 @@ export async function fetchAndParseRssFeed(url: string) {
 }
 
 function test() {
-  const RSS_FEED_URL = "https://www.aktualne.cz/rss/";
+  const RSS_FEED_URL = "https://aljazeera.com/xml/rss/all.xml";
   fetchAndParseRssFeed(RSS_FEED_URL).then((parsedRssFeed) => {
     console.log(parsedRssFeed.rss.channel[0]);
   });

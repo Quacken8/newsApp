@@ -7,6 +7,7 @@
     imageSrc?: string;
     imageAlt?: string;
     link?: string;
+    source?: string;
   };
 </script>
 
@@ -32,13 +33,18 @@
         {content.perex}
       </div>
     </article>
-    {#if content.keywords}
-      <div class="keywords">
+    <div class="keywords">
+      {#if content.source}
+        <div class="source">
+          {content.source}
+        </div>
+      {/if}
+      {#if content.keywords}
         {#each content.keywords as keyword}
           <Chip content={keyword} />
         {/each}
-      </div>
-    {/if}
+      {/if}
+    </div>
   </div>
 </a>
 
@@ -71,6 +77,11 @@
   .title {
     font-size: 1.5em;
     font-weight: bold;
+  }
+
+  .source {
+    font-size: 0.8em;
+    color: gray;
   }
 
   .keywords {
