@@ -4,9 +4,12 @@
 </script>
 
 <div class="app">
-  <main>
-    <slot />
-  </main>
+  <div class="layout">
+    <Header />
+    <main>
+      <slot />
+    </main>
+  </div>
 </div>
 
 <style>

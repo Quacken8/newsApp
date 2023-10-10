@@ -7,12 +7,13 @@
     imageSrc?: string;
     imageAlt?: string;
     link?: string;
-    source?: string;
+    source?: SourceContent;
   };
 </script>
 
 <script lang="ts">
   import Chip, { type ChipContent } from "./Chip.svelte";
+  import type { SourceContent } from "./Source.svelte";
   export let content: ArticleContent;
   // FIXME add a little icon that says open in new tab
 </script>
@@ -25,9 +26,9 @@
     <article>
       <div class="title">
         {content.title}
-      </div>
-      <div class="date">
-        {content.date?.toDateString()}
+        <div class="date">
+          {content.date?.toDateString()}
+        </div>
       </div>
       <div class="perex">
         {content.perex}
@@ -36,7 +37,7 @@
     <div class="keywords">
       {#if content.source}
         <div class="source">
-          {content.source}
+          {content.source.name}
         </div>
       {/if}
       {#if content.keywords}
@@ -61,13 +62,19 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 1em;
+    width: 60vw;
   }
 
   .article-container:hover {
     background-color: rgb(255, 205, 140, 0.8);
   }
 
+  img {
+    flex: 1;
+  }
+
   article {
+    flex: 4;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -75,6 +82,9 @@
   }
 
   .title {
+    display: flex;
+    align-items: end;
+    gap: 10px;
     font-size: 1.5em;
     font-weight: bold;
   }
@@ -91,7 +101,8 @@
   }
 
   .date {
-    font-size: 0.8em;
+    font-size: 0.6em;
+    font-weight: lighter;
     color: gray;
   }
 </style>
