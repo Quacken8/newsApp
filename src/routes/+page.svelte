@@ -6,6 +6,9 @@
   import type { SourceContent } from "$lib/components/Source.svelte";
 
   import { fetchAktualneArticles } from "$lib/articleFetchers/aktualne";
+  import type { AppState } from "$lib/utils/appState";
+  import { writable } from "svelte/store";
+  import { flip } from "svelte/animate";
   //const articles = fetchAktualneArticles();
 
   const placeholderArticle: ArticleContent = {
@@ -17,30 +20,49 @@
     imageAlt: "image alt text",
     link: "https://example.com",
     source: { name: "placeholder source" },
+    id: 1,
+  };
+
+  const differentPlaceholderArticle: ArticleContent = {
+    title: "Different one",
+    perex: "Placeholder perex",
+    date: new Date(),
+    keywords: [{ text: "Placeholder", link: "https://google.com" }],
+    imageSrc: "",
+    imageAlt: "image alt text",
+    link: "https://example.com",
+    source: { name: "different placeholder source" },
+    id: 1,
   };
 
   const articles = Promise.resolve([
     placeholderArticle,
     placeholderArticle,
+    differentPlaceholderArticle,
     placeholderArticle,
     placeholderArticle,
-  ]);
+    differentPlaceholderArticle,
+    differentPlaceholderArticle,
+  ]).then((articles) => articles.map((article, id) => ({ ...article, id })));
 
   // get all unique sources
   const sources = articles.then((articles) =>
     articles.reduce((acc, article) => {
-      const newSource = {
-        name: article.source, // FIXME expand
-      };
-      if (
-        article.source &&
-        !acc.some((source) => source.name === article.source)
-      ) {
-        console.log(acc);
-        acc.push(newSource);
+      if (article.source && !acc.some((source) => source === article.source)) {
+        acc.push(article.source);
       }
       return acc;
     }, [] as SourceContent[])
+  );
+
+  let appState: AppState;
+  sources.then(
+    (sources) =>
+      (appState = {
+        sourceVisibilities: new Map(
+          sources.map((source) => [source, writable(true)])
+        ),
+      })
   );
 </script>
 
@@ -51,11 +73,12 @@
 
 <div class="layout">
   <div class="articles">
-    {#await articles}
+    {#await Promise.all([articles, sources])}
       <p>loading...</p>
-    {:then articles}
-      {#each articles as article}
-        <Article content={article} />
+    {:then [articles, _]}
+      {#each articles as article (article.id)}
+        {@const visibility = appState.sourceVisibilities.get(article.source)}
+        <Article content={article} {visibility} />
       {/each}
     {/await}
   </div>
@@ -65,7 +88,7 @@
       loading...
     {:then sources}
       {#each sources as source}
-        <Source content={source} />
+        <Source content={source} {appState} />
       {/each}
     {/await}
   </div>

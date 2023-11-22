@@ -6,7 +6,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:deploy": "tsx .drizzle/migrator.ts"
   },
   "devDependencies": {
     "@fontsource/fira-mono": "^4.5.10",
@@ -15,8 +17,10 @@
     "@sveltejs/kit": "^1.20.4",
     "@types/cookie": "^0.5.1",
     "@types/xml2js": "^0.4.12",
+    "drizzle-kit": "^0.19.13",
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.3",
+    "ts-node": "^10.9.1",
     "tslib": "^2.4.1",
     "typescript": "^5.0.0",
     "vite": "^4.4.2"
@@ -24,8 +28,13 @@
   "type": "module",
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
-    "svelte-fa": "^3.0.4",
+    "@neondatabase/serverless": "^0.6.0",
     "axios": "^1.5.1",
+    "dotenv": "^16.3.1",
+    "drizzle-orm": "^0.28.6",
+    "pg": "^8.11.3",
+    "svelte-fa": "^3.0.4",
+    "tsx": "^4.2.0",
     "xml2js": "^0.6.2"
   }
 }

@@ -8,8 +8,14 @@
 </script>
 
 <script lang="ts">
+  import type { AppState } from "$lib/utils/appState";
+
   export let content: SourceContent;
-  export let enabled: boolean;
+  export let appState: AppState;
+
+  let enabled: boolean = true;
+
+  $: appState.sourceVisibilities.get(content)?.set(enabled);
 </script>
 
 <div class="source-container">

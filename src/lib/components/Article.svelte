@@ -7,47 +7,52 @@
     imageSrc?: string;
     imageAlt?: string;
     link?: string;
-    source?: SourceContent;
+    source: SourceContent;
+    id: number;
   };
 </script>
 
 <script lang="ts">
+  import type { Writable } from "svelte/store";
+  import { slide } from "svelte/transition";
+
   import Chip, { type ChipContent } from "./Chip.svelte";
   import type { SourceContent } from "./Source.svelte";
   export let content: ArticleContent;
+  export let visibility: Writable<boolean> | undefined;
   // FIXME add a little icon that says open in new tab
 </script>
 
-<scrypt lang="ts" context="module" />
-
-<a href={content.link} target="_blank">
-  <div class="article-container">
-    <img src={content.imageSrc} alt={content.imageAlt} />
-    <article>
-      <div class="title">
-        {content.title}
-        <div class="date">
-          {content.date?.toDateString()}
+{#if $visibility}
+  <a href={content.link} target="_blank" transition:slide>
+    <div class="article-container">
+      <img src={content.imageSrc} alt={content.imageAlt} />
+      <article>
+        <div class="title">
+          {content.title}
+          <div class="date">
+            {content.date?.toDateString()}
+          </div>
         </div>
-      </div>
-      <div class="perex">
-        {content.perex}
-      </div>
-    </article>
-    <div class="keywords">
-      {#if content.source}
-        <div class="source">
-          {content.source.name}
+        <div class="perex">
+          {content.perex}
         </div>
-      {/if}
-      {#if content.keywords}
-        {#each content.keywords as keyword}
-          <Chip content={keyword} />
-        {/each}
-      {/if}
+      </article>
+      <div class="keywords">
+        {#if content.source}
+          <div class="source">
+            {content.source.name}
+          </div>
+        {/if}
+        {#if content.keywords}
+          {#each content.keywords as keyword}
+            <Chip content={keyword} />
+          {/each}
+        {/if}
+      </div>
     </div>
-  </div>
-</a>
+  </a>
+{/if}
 
 <style>
   a {

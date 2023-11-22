@@ -31,7 +31,8 @@ export async function fetchAndParseRssFeed(url: string) {
 }
 
 function test() {
-  const RSS_FEED_URL = "https://aljazeera.com/xml/rss/all.xml";
+  const RSS_FEED_URL =
+    "https://www.reutersagency.com/feed/?taxonomy=best-sectors&post_type=best";
   fetchAndParseRssFeed(RSS_FEED_URL).then((parsedRssFeed) => {
     console.log(parsedRssFeed.rss.channel[0]);
   });
