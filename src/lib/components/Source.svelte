@@ -1,13 +1,6 @@
-<script lang="ts" context="module">
-  export interface SourceContent {
-    name?: string;
-    link?: string;
-    image?: string;
-    description?: string;
-  }
-</script>
-
 <script lang="ts">
+  import type { SourceContent } from "$lib/types";
+
   import type { AppState } from "$lib/utils/appState";
 
   export let content: SourceContent;

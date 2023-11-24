@@ -1,0 +1,32 @@
+import type { Article } from "./db/schema";
+import { db } from "./db/db";
+import dayjs from "dayjs";
+
+export async function fetchArticles(
+  since?: dayjs.Dayjs,
+  sources?: string[],
+  betterThan?: number
+): Promise<Article[]> {
+  const filter: {} = {};
+  if (since) {
+    filter["date"] = {
+      gte: since?.toDate(),
+    };
+  }
+  if (sources) {
+    filter["source"] = {
+      name: {
+        in: sources,
+      },
+    };
+  }
+  if (betterThan) {
+    filter["score"] = {
+      gte: betterThan,
+    };
+  }
+
+  return await db.query.articleSchema.findMany({
+    with: filter,
+  });
+}

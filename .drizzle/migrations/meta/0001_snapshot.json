@@ -1,0 +1,14 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "id": "fb1c35c3-3b13-4dd8-b32b-da5937ce44da",
+  "prevId": "2e8c8e0b-033b-4dd2-a9da-b585a5197b55",
+  "tables": {},
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

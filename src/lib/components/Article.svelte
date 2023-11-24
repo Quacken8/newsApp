@@ -1,14 +1,13 @@
 <script lang="ts" context="module">
   export type ArticleContent = {
-    title?: string;
-    perex?: string;
-    date?: Date;
+    title: string;
+    perex?: string | null;
+    date: string;
     keywords?: ChipContent[];
-    imageSrc?: string;
-    imageAlt?: string;
-    link?: string;
+    imageSrc?: string | null;
+    imageAlt?: string | null;
+    link?: string | null;
     source: SourceContent;
-    id: number;
   };
 </script>
 
@@ -17,7 +16,8 @@
   import { slide } from "svelte/transition";
 
   import Chip, { type ChipContent } from "./Chip.svelte";
-  import type { SourceContent } from "./Source.svelte";
+  import type { SourceContent } from "$lib/types";
+  import dayjs from "dayjs";
   export let content: ArticleContent;
   export let visibility: Writable<boolean> | undefined;
   // FIXME add a little icon that says open in new tab
@@ -31,12 +31,14 @@
         <div class="title">
           {content.title}
           <div class="date">
-            {content.date?.toDateString()}
+            {dayjs(content.date).format("DD.MM.YYYY") ?? ""}
           </div>
         </div>
-        <div class="perex">
-          {content.perex}
-        </div>
+        {#if content.perex}
+          <div class="perex">
+            {content.perex}
+          </div>
+        {/if}
       </article>
       <div class="keywords">
         {#if content.source}

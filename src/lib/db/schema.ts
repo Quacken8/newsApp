@@ -8,10 +8,11 @@ import {
   date,
 } from "drizzle-orm/pg-core";
 
-export const ArticleSchema = pgTable("articles", {
+export const articleSchema = pgTable("articles", {
   id: serial("id").primaryKey(),
-  title: varchar("title", { length: 255 }),
-  perex: varchar("perex", { length: 255 }),
+  title: varchar("title", { length: 255 }).notNull(),
+  score: integer("score").notNull(),
+  perex: varchar("perex", { length: 2047 }),
   date: date("date").notNull(),
   keywords: varchar("keywords", { length: 255 }),
   imageSrc: varchar("image_src", { length: 255 }),
@@ -19,6 +20,9 @@ export const ArticleSchema = pgTable("articles", {
   link: varchar("link", { length: 255 }),
   source: varchar("source", { length: 255 }).notNull(),
 });
+
+export type Article = typeof articleSchema.$inferSelect;
+export type NewArticle = typeof articleSchema.$inferInsert;
 
 //  export type ArticleContent = {
 //    title?: string;
