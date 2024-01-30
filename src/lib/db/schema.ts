@@ -1,3 +1,4 @@
+import type { ChipContent } from "$lib/components/Chip.svelte";
 import {
   integer,
   pgEnum,
@@ -6,23 +7,23 @@ import {
   uniqueIndex,
   varchar,
   date,
+  text,
+  json,
 } from "drizzle-orm/pg-core";
 
 export const articleSchema = pgTable("articles", {
   id: serial("id").primaryKey(),
-  title: varchar("title", { length: 255 }).notNull(),
+  title: text("title").notNull(),
   score: integer("score").notNull(),
-  perex: varchar("perex", { length: 2047 }),
+  perex: text("perex"),
   date: date("date").notNull(),
-  keywords: varchar("keywords", { length: 255 }),
-  imageSrc: varchar("image_src", { length: 255 }),
-  imageAlt: varchar("image_alt", { length: 255 }),
-  link: varchar("link", { length: 255 }),
-  source: varchar("source", { length: 255 }).notNull(),
+  keywords: json("keywords").$type<ChipContent[]>(),
+  imageSrc: text("image_src"),
+  imageAlt: text("image_alt"),
+  articleLink: text("link").notNull(),
+  sourceName: text("sourceName").notNull(),
+  sourceLink: text("sourceLink").notNull(),
 });
-
-export type Article = typeof articleSchema.$inferSelect;
-export type NewArticle = typeof articleSchema.$inferInsert;
 
 //  export type ArticleContent = {
 //    title?: string;

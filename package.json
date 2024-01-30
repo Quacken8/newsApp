@@ -8,7 +8,8 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "db:generate": "drizzle-kit generate:pg",
-    "db:deploy": "tsx .drizzle/migrator.ts"
+    "db:deploy": "tsx .drizzle/migrator.ts",
+    "db:refresh": "tsx src/lib/dbUpdater.ts"
   },
   "devDependencies": {
     "@fontsource/fira-mono": "^4.5.10",
@@ -34,9 +35,14 @@
     "dayjs": "^1.11.10",
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.28.6",
+    "drizzle-valibot": "^0.1.1",
+    "drizzle-zod": "^0.5.1",
     "pg": "^8.11.3",
     "svelte-fa": "^3.0.4",
+    "svelte-legos": "^0.2.2",
     "tsx": "^4.2.0",
-    "xml2js": "^0.6.2"
+    "valibot": "^0.25.0",
+    "xml2js": "^0.6.2",
+    "zod": "^3.22.4"
   }
 }

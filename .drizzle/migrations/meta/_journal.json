@@ -5,29 +5,15 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1697039582587,
-      "tag": "0000_happy_tyger_tiger",
+      "when": 1705249808527,
+      "tag": "0000_quick_ozymandias",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "5",
-      "when": 1700671086937,
-      "tag": "0001_dry_banshee",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1700671498698,
-      "tag": "0002_melted_sway",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1700675410567,
-      "tag": "0003_brave_havok",
+      "when": 1705251119978,
+      "tag": "0001_absurd_starfox",
       "breakpoints": true
     }
   ]

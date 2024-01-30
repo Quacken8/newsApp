@@ -1,9 +1,9 @@
 <script lang="ts" context="module">
-  export type ArticleContent = {
+  type ArticleContent = {
     title: string;
     perex?: string | null;
     date: string;
-    keywords?: ChipContent[];
+    keywords?: ChipContent[] | null;
     imageSrc?: string | null;
     imageAlt?: string | null;
     link?: string | null;

@@ -13,8 +13,11 @@
 
   // get all unique sources
   const sources = articles.reduce((acc, article) => {
-    if (article.source && !acc.some((source) => source === article.source)) {
-      acc.push(article.source);
+    if (
+      article.sourceName &&
+      !acc.some((source) => source === article.sourceName)
+    ) {
+      acc.push(article.sourceName);
     }
     return acc;
   }, [] as string[]);
@@ -38,9 +41,14 @@
       <p>loading...</p>
     {:then [articles, _]}
       {#each articles as article (article.id)}
-        {@const visibility = appState.sourceVisibilities.get(article.source)}
+        {@const visibility = appState.sourceVisibilities.get(
+          article.sourceName
+        )}
         <Article
-          content={{ ...article, source: { name: article.source, link: "" } }}
+          content={{
+            ...article,
+            source: { name: article.sourceName, link: article.sourceLink },
+          }}
           {visibility}
         />
       {/each}

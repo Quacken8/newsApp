@@ -1,0 +1,1 @@
+ALTER TABLE "articles" ALTER COLUMN "keywords" SET DATA TYPE json;
